@@ -7,3 +7,9 @@
 <br>
 
 # model association:  https://levelup.gitconnected.com/creating-sequelize-associations-with-the-sequelize-cli-tool-d83caa902233?gi=fdca43bad4dc
+
+
+# graphql:
+
+https://topdev.vn/blog/huong-dan-bat-dau-graphql-voi-node-js/
+https://topdev.vn/blog/huong-dan-bat-dau-graphql-voi-node-js-phan-2/
