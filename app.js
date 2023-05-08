@@ -4,6 +4,7 @@ var { buildSchema } = require('graphql');
 var { makeExecutableSchema } = require('@graphql-tools/schema');
 var config = require('config');
 var bodyParser = require('body-parser');
+var expressLayouts=require("express-ejs-layouts");
 
 // Initialize a GraphQL schema
 // var schema = buildSchema(`
@@ -66,6 +67,8 @@ app.use(bodyParser.json());
 
 app.set("views", __dirname + "/apps/views");
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set('layout', 'layouts/layout');
 
 // static folder
 app.use("/static", express.static(__dirname + "/public"));

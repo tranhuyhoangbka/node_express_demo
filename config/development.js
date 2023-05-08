@@ -1,0 +1,8 @@
+module.exports = {
+    email: {
+        host: 'localhost',
+        port: 1025,
+        secure: false,
+        from: 'noreply@example.com'
+    }
+}
