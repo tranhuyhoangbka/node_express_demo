@@ -1,4 +1,6 @@
 var express = require('express');
+const session = require('express-session');
+const flash = require('express-flash');
 const {graphqlHTTP} = require('express-graphql');
 var { buildSchema } = require('graphql');
 var { makeExecutableSchema } = require('@graphql-tools/schema');
@@ -62,7 +64,21 @@ const executableSchema = makeExecutableSchema({
 })
 
 var app = express();
+
+app.use(session({
+  secret: 'my-secret-key',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+// set up express-flash middleware
+app.use(flash());
+
+
 // body parser
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
 app.set("views", __dirname + "/apps/views");

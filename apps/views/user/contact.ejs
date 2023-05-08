@@ -1,4 +1,15 @@
 <h1>this is content contact</h1>
+<% if(flashMessages) { %>
+    <h3><%= flashMessages %></h3>
+<% } %>
 <p><%= contact.title %></p>
+
+<form method="post" action="/contact">
+    <input type="text" name="title" placeholder="title" />
+    <input type="text" name="email" placeholder="email" />
+    <input type="text" name="content" placeholder="content" />
+    <button>Submit</button>
+</form>
+
 <%- contentFor('title') %>
 sample title
