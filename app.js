@@ -7,6 +7,7 @@ var { makeExecutableSchema } = require('@graphql-tools/schema');
 var config = require('config');
 var bodyParser = require('body-parser');
 var expressLayouts=require("express-ejs-layouts");
+const crawnNewPosts = require('./apps/jobs/crawnNewPosts');
 
 // Initialize a GraphQL schema
 // var schema = buildSchema(`
@@ -100,6 +101,9 @@ app.use('/graphql', graphqlHTTP({
   context: sampleData,
   graphiql: true,  // Enable GraphiQL when server endpoint is accessed in browser
 }));
+
+// Cronjob
+crawnNewPosts();
 
 var host = config.get("server.host");
 var port = config.get('server.port');
