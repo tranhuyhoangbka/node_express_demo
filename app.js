@@ -1,5 +1,8 @@
 var express = require('express');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const flash = require('express-flash');
 const {graphqlHTTP} = require('express-graphql');
 var { buildSchema } = require('graphql');
@@ -8,6 +11,8 @@ var config = require('config');
 var bodyParser = require('body-parser');
 var expressLayouts=require("express-ejs-layouts");
 const crawnNewPosts = require('./apps/jobs/crawnNewPosts');
+const {User} = require('./db/models');
+const {verifyCallback} = require('./apps/controllers/user/passport');
 
 // Initialize a GraphQL schema
 // var schema = buildSchema(`
@@ -67,10 +72,40 @@ const executableSchema = makeExecutableSchema({
 var app = express();
 
 app.use(session({
+  key: 'session_cookie_name',
   secret: 'my-secret-key',
+  store: new MySQLStore({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'blog_node_development'
+  }),
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 1000*60*60*24,
+  }
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const customFields = {
+  usernameField: 'uname',
+  passwordField: 'pw',
+}
+
+const strategy = new LocalStrategy(verifyCallback);
+passport.use('local', strategy);
+
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 // set up express-flash middleware
 app.use(flash());

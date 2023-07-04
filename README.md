@@ -23,3 +23,10 @@ https://www.howtographql.com/graphql-js/1-getting-started/
 <br>
 ### Using with sequelize:
 https://kinsta.com/blog/graphql-nodejs/
+
+# Login Logout use passport.js
+
+https://jodiss-tri.medium.com/build-a-login-system-in-node-js-using-passport-js-and-mysql-52667cf3cc40
+https://heynode.com/tutorial/authenticate-users-node-expressjs-and-passportjs/
+https://viblo.asia/p/passport-trong-nodejs-authentication-1VgZvwdrlAw
+https://blog.logrocket.com/using-passport-authentication-node-js/
