@@ -1,4 +1,13 @@
 <h1>Login</h1>
+
+<% if(flashErrorMessages) { %>
+    <p><%= flashErrorMessages %></p>
+<% } %>
+
+<% if(flashSuccessMessages) { %>
+    <p><%= flashSuccessMessages %></p>
+<% } %>
+
 <form method="post" action="/login">
     <input type="text" name="username" placeholder="User Name" /><br>
     <input type="password" name="password" placeholder="Password" /><br>

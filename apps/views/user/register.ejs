@@ -1,0 +1,17 @@
+<h1>Registerxxxx</h1>
+<div>
+    <% if(flashErrorMessages) { %>
+        <p><%= flashErrorMessages %></p>
+    <% } %>
+
+    <% if(flashSuccessMessages) { %>
+        <p><%= flashSuccessMessages %></p>
+    <% } %>
+</div>
+<form method="post" action="/register">
+    <input type="text" name="username" placeholder="User Name" /><br>
+    <input type="password" name="password" placeholder="Password" /><br>
+    <input type="submit" value="Submit" />
+</form>
+<%- contentFor('title') %>
+Register

@@ -2,10 +2,11 @@ var express = require("express");
 const nodemailer = require('nodemailer');
 var router = express.Router();
 const config = require('config');
+const {requireAuthenticate} = require('./passport');
 
 const {Contact} = require('../../../db/models');
 
-router.get("/", function(req, res) {
+router.get("/", requireAuthenticate, function(req, res) {
 //   res.json({"message": "this is blog page"});
   res.render("user/contact", {contact: {title: 'title', content: 'cotnent', email: 'test@example.com'}, pageTitle: 'sample page title', flashMessages: req.flash('success')});
 });

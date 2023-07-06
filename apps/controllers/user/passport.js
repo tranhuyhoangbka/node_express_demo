@@ -1,6 +1,7 @@
 const passport = require('passport');
 const crypto = require('crypto');
 const {User} = require('../../../db/models');
+var flash =    require('connect-flash');
 
 async function verifyCallback(username, password, done) {
     const user = await User.findOne({username: username});
@@ -28,11 +29,13 @@ function genPassword(password) {
     return {salt: salt, hash: genhash};
 }
 
-function isAuth(req, res, next) {
+function requireAuthenticate(req, res, next) {
     if(req.isAuthenticated()) {
         next();
     } else {
-        res.redirect('/notAuthorized');
+        req.flash('error', 'require login');
+        req.session.originalUrl = req.originalUrl;
+        res.redirect('/login');
     }
 }
 
@@ -45,12 +48,15 @@ function isAdmin(req, res, next) {
 }
 
 async function userExists(req, res, next) {
-    const user = await User.findOne({where: {username: req.body.uname}});
+    const user = await User.findOne({where: {username: req.body.username}});
     if(user === null) {
+        console.log('user not exist, ok')
         next();
     } else {    
-        res.redirect('/userAlreadyExists');
+        console.log('user existd')
+        req.flash('error', 'username is existed!');
+        res.redirect('/register');
     }
 }
 
-module.exports = {verifyCallback, genPassword}
+module.exports = {verifyCallback, genPassword, userExists, requireAuthenticate}
